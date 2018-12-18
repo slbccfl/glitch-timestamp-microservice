@@ -20,10 +20,25 @@ app.get("/", function (req, res) {
 
 
 // your first API endpoint... 
+app.get("/api/timestamp/:date_string", function (req, res) {
+  
+  var time = null;
+  
+  var unixTime = parseInt(req.params.date_string*1)
+  
+  if (isNaN(unixTime)) {
+    time =  new Date(req.params.date_string)
+  } else {
+    time =  new Date(unixTime)
+  }
+  
+  res.send({'unix': time.getTime(), "utc": time.toUTCString()});
+});
+
+// your first API endpoint... 
 app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
-
 
 
 // listen for requests :)
